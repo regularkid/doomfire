@@ -5,6 +5,8 @@ var framebuffer32Bit = new Uint32Array(framebuffer.data.buffer);
 var heightMult = 1.0;
 var windMult = 0.0;
 
+document.getElementById("heightSlider").oninput = () => { heightMult = 2.0 - parseFloat(document.getElementById("heightSlider").value); }
+document.getElementById("windSlider").oninput = () => { windMult = parseFloat(document.getElementById("windSlider").value); }
 window.addEventListener("keyup", e => { if (e.key === "ArrowUp") { SetFireActive(!fireActive); e.preventDefault(); }});
 
 var colors =
