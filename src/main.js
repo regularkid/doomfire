@@ -24,11 +24,11 @@ function SetFireActive(active)
     framebuffer32Bit.fill(fireActive ? colors[colors.length - 1] : 0x000000, (canvas.height - 1) * canvas.width, framebuffer32Bit.length);
 }
 
-function GameLoop(curTime)
+function GameLoop()
 {
     for (let pixelIdx = 0; pixelIdx < (canvas.height - 1) * canvas.width; pixelIdx++)
     {
-        let dst = Math.round((pixelIdx - 1) + (Math.random() * 2.5) + windMult);
+        let dst = Math.max(Math.min(Math.round((pixelIdx - 1) + (Math.random() * 2.5) + windMult), framebuffer32Bit.length), 0);
         let src = pixelIdx + canvas.width;
         framebuffer32Bit[dst] = colors[Math.max(colorsLookup[framebuffer32Bit[src]] - Math.round(Math.random() * heightMult), 0)];
     }
