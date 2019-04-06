@@ -38,15 +38,33 @@
                 appearance: none;
                 width: 45px;
                 height: 45px;
-                background: rgb(45, 10, 204);
+                background: #0270FF;
                 cursor: pointer;
             }
 
             .slider::-moz-range-thumb {
                 width: 45px;
                 height: 45px;
-                background: rgb(45, 10, 204);
+                background: #0270FF;
                 cursor: pointer;
+            }
+
+            .button {
+                background-color: #0270FF;
+                border: none;
+                color: white;
+                padding: 15px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 24px;
+                opacity: 0.7;
+                -webkit-transition: .2s;
+                transition: opacity .2s;
+            }
+
+            .button:hover {
+                opacity: 1;
             }
         </style>
         <title>Super Micro Fun - Doom Fire</title>
@@ -65,7 +83,11 @@
                 <input type="range" id="heightSlider" name="heightSlider" value="1.0" min="0.0" max="1.45" step="0.05" class="slider">
                 <label for="heightSlider">Height</label><br/><br/>
                 <input type="range" id="windSlider" name="windSlider" value="0.0" min="-1.0" max="1.0" step="0.1" class="slider">
-                <label for="windSlider">Wind</label><br/>
+                <label for="windSlider">Wind</label><br/><br/><br/>
+
+                <button class="button" onclick="Init(colorsClassic)">Classic Colors</button>
+                <button class="button" onclick="Init(colorsGrayscale)">Grayscale Colors</button>
+                <button class="button" onclick="Init(colorsRainbow)">Rainbow Colors</button>
 
                 <script src="src/main.js"></script>
             </center>
@@ -79,10 +101,10 @@
                 The fire effect from Final Doom (PSX) - described by Fabien Sanglard <a href="http://fabiensanglard.net/doom_fire_psx/">here</a>!<br/><br/>
 
                 <b>How Long Did It Take?</b><br/>
-                1 day - a coule of days figuring out why it didn't work on mobile browsers :)<br/><br/>
+                A couple of days.<br/><br/>
 
                 <b>How Many Lines of Code?</b><br/>
-                41<br/><br/>
+                72<br/><br/>
             </div>
 
             <script src="/footer.js"></script>
