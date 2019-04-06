@@ -13,13 +13,13 @@ var colorsLookup = {};
 
 document.getElementById("heightSlider").oninput = () => { heightMult = 2.0 - parseFloat(document.getElementById("heightSlider").value); }
 document.getElementById("windSlider").oninput = () => { windMult = parseFloat(document.getElementById("windSlider").value); }
-window.addEventListener("mousemove", SetTouchPos );
-window.addEventListener("mousedown", e => { touch.active = true });
-window.addEventListener("mouseup", e => { touch.active = false });
-window.addEventListener("touchstart", e => { SetTouchPos(e.touches[0]); touch.active = true; } );
-window.addEventListener("touchend", e => { touch.active = false } );
-window.addEventListener("touchcancel", e => { touch.active = false } );
-window.addEventListener("touchmove", e => { SetTouchPos(e.touches[0]); } );
+canvas.addEventListener("mousedown", e => { touch.active = true }, false);
+canvas.addEventListener("mouseup", e => { touch.active = false }, false);
+canvas.addEventListener("mousemove", e => { SetTouchPos(e); e.preventDefault(); }, false );
+canvas.addEventListener("touchstart", e => { SetTouchPos(e.touches[0]); touch.active = true; e.preventDefault(); }, false );
+canvas.addEventListener("touchend", e => { touch.active = false; e.preventDefault(); }, false );
+canvas.addEventListener("touchcancel", e => { touch.active = false; e.preventDefault(); }, false );
+canvas.addEventListener("touchmove", e => { SetTouchPos(e.touches[0]); e.preventDefault(); }, false );
 
 function Init(colorPalette)
 {
@@ -39,7 +39,7 @@ function GameLoop()
         framebuffer32Bit[dst] = colors[Math.max(colorsLookup[framebuffer32Bit[src]] - Math.round(Math.random() * heightMult), 0)];
     }
 
-    if (touch.active && touch.x )
+    if (touch.active)
     {
         for (let i = 0; i < 4; i++)
         {
@@ -54,18 +54,8 @@ function GameLoop()
 
 function SetTouchPos(event)
 {
-    touch.x = (event.clientX - canvas.getBoundingClientRect().left) / 4.0;     // Screen scale factor = 4 (see index.html)
-    touch.y = (event.clientY - canvas.getBoundingClientRect().top) / 4.0;
-        
-    if (touch.x >= 0 && touch.x < canvas.width && touch.y >= 0 && touch.y < canvas.height)
-    {
-        event.preventDefault();
-    }
-    else
-    {
-        touch.x = 0;
-        touch.y = 0;
-    }
+    touch.x = (event.pageX - canvas.offsetLeft) / 4.0; // Screen scale factor = 4 (see index.html)
+    touch.y = (event.pageY - canvas.offsetTop) / 4.0;
 }
 
 Init(colorsClassic);
